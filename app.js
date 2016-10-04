@@ -42,6 +42,11 @@ io.sockets.on("connection", function (socket) {
         socket.handshake.session.pseudo = pseudo;
         socket.broadcast.emit('new_arrived', pseudo + ' vient de se connecter !');
     });
+
+    socket.on('disconnect', function () {
+       socket.broadcast.emit('user_disconnected', socket.handshake.session.pseudo + ' vient de se déconnecter');
+    });
 });
 
+// server.listen(3000);
 server.listen(process.env.PORT);
