@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>un titre</title>
+
+        <style>
+            body {
+                font-family: Helvetica, sans-serif;
+            }
+            .message > span {
+                font-weight: bold;
+            }
+            .connect {
+                font-weight: bold;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Bienvenue sur le super tchat !</h1>
+
+        <form action="index.html" method="post" id="form">
+            <input type="text" name="message" placeholder="Tapez votre message" />
+            <input type="submit" value="envoyer" />
+        </form>
+
+        <div id="main_wrapper">
+
+        </div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io.connect('http://192.168.0.23:3000');
+            var allMessages = document.getElementById("main_wrapper");
+
+            var pseudo = prompt('Quel est votre pseudo ?');
+            socket.emit('petit_nouveau', pseudo);
+
+            socket.on('new_arrived', function (pseudo) {
+                var newConnection = document.createElement("p");
+                var textNode = document.createTextNode(pseudo);
+
+                newConnection.setAttribute("class", "connect");
+                newConnection.appendChild(textNode);
+
+                allMessages.appendChild(newConnection);
+            });
+
+            var form = document.getElementById("form");
+
+            form.onsubmit = function (e) {
+                e.preventDefault();
+                var message = document.getElementsByName("message")[0];
+                socket.emit('message', message.value);
+
+                message.value = "";
+            };
+
+            socket.on('message', function (message) {
+                var newMessage = document.createElement("p");
+                var pseudoBox = document.createElement("span");
+                var textNode = document.createTextNode(message.pseudo);
+
+                pseudoBox.appendChild(textNode);
+
+                newMessage.setAttribute("class", "message");
+                newMessage.appendChild(pseudoBox);
+
+                textNode = document.createTextNode(' : ' + message.content);
+                newMessage.appendChild(textNode);
+
+
+                allMessages.appendChild(newMessage);
+            });
+
+            socket.on('welcome', function (message) {
+                var newMessage = document.createElement("p");
+                var strong = document.createElement("strong");
+                var textNode = document.createTextNode(message);
+
+                strong.appendChild(textNode);
+                newMessage.appendChild(strong);
+
+                allMessages.appendChild(newMessage);
+            });
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,16 @@
+<h1>Votre todolist</h1>
+
+<%= console.log(locals.tasks) %>
+
+<%if (locals.tasks) { %>
+    <ul>
+        <% for (var i = 0 ; i < tasks.length ; i++) { %>
+            <li><a href="/todo/supprimer/<%= i %>" style="text-decoration: none; color: #000;">✖</a> <%= tasks[i] %></li>
+        <% } %>
+    </ul>
+<% } %>
+
+<form action="/todo/ajouter/" method="post">
+    <input type="text" name="task" placeholder="Que dois-je faire ?" />
+    <input type="submit" value="ajouter" />
+</form>
