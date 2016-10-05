@@ -36,7 +36,7 @@
             var allMessages = document.getElementById("main_wrapper");
 
             var pseudo = prompt('Quel est votre pseudo ?');
-            while (pseudo.length < 1 || pseudo === false){
+            while (pseudo === null || pseudo.length < 1){
                 pseudo = prompt('Votre pseudo ne peut être vide');
             }
             socket.emit('petit_nouveau', pseudo);
