@@ -15,12 +15,6 @@ app.get('/', function (req, res) {
         res.setHeader('Content-Type', 'text/plain');
         res.status(404).send('page introuvable');
     });
-// var server = http.createServer(function (req, res) {
-//     fs.readFile('./index.html', 'utf-8', function (error, content) {
-//         res.writeHead(200, {'Content-Type' : 'text/html'});
-//         res.end(content);
-//     });
-// });
 
 var ios = require('socket.io-express-session');
 var io = require('socket.io')(server);
@@ -59,4 +53,3 @@ io.sockets.on("connection", function (socket) {
 });
 
 server.listen(app.get('port'));
-// app.listen(process.env.PORT);
