@@ -9,7 +9,7 @@ var SessionStore = require("session-file-store")(Session);
 var session = Session({ store : new SessionStore({ path : 'tmp/sessions'}), secret : 'pass', resave : true, saveUninitialized : true});
 
 app.get('/', function (req, res) {
-    res.sendFile('index.html', {root: __dirname} );
+    res.sendFile('public/index.html', {root: __dirname} );
 })
     .use(function (req, res, next) {
         res.setHeader('Content-Type', 'text/plain');
