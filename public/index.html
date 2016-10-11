@@ -31,14 +31,16 @@
 
         <script src="/socket.io/socket.io.js"></script>
         <script>
-//            var socket = io.connect('http://192.168.0.23:3000');
-            var socket = io.connect('http://tchati.herokuapp.com/');
             var allMessages = document.getElementById("main_wrapper");
 
             var pseudo = prompt('Quel est votre pseudo ?');
             while (pseudo === null || pseudo.length < 1){
                 pseudo = prompt('Votre pseudo ne peut être vide');
             }
+
+            var socket = io.connect('http://192.168.0.23:3000');
+            //            var socket = io.connect('http://tchati.herokuapp.com/');
+
             socket.emit('petit_nouveau', pseudo);
 
             socket.on('new_arrived', function (pseudo) {
@@ -97,7 +99,7 @@
                 newMessage.appendChild(textNode);
 
                 allMessages.appendChild(newMessage);
-            })
+            });
         </script>
 
     </body>
