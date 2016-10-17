@@ -38,8 +38,8 @@
                 pseudo = prompt('Votre pseudo ne peut être vide');
             }
 
-//            var socket = io.connect('http://192.168.0.23:3000');
-            var socket = io.connect('http://tchati.herokuapp.com/');
+            var socket = io.connect('http://192.168.0.23:3000');
+//            var socket = io.connect('http://tchati.herokuapp.com/');
 
             socket.emit('petit_nouveau', pseudo);
 
